@@ -11,6 +11,7 @@ import (
 func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Request) {
 	var input struct {
 		Name     string `json:"name"`
+		Surname  string `json:"surname"`
 		Email    string `json:"email"`
 		Password string `json:"password"`
 		Role     string `json:"role"`
@@ -24,6 +25,7 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 
 	user := &data.User{
 		Name:      input.Name,
+		Surname:   input.Surname,
 		Email:     input.Email,
 		Role:      input.Role,
 		Activated: false,
@@ -61,9 +63,15 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 	}
 
 	app.background(func() {
+
+		user_tmpl := app.models.Users.GetById(token.UserID)
+
 		data := map[string]any{
 			"activationToken": token.Plaintext,
 			"userID":          token.UserID,
+			"name":            user_tmpl.Name,
+			"surname":         user_tmpl.Surname,
+			"email":           user_tmpl.Email,
 		}
 
 		err = app.mailer.Send(user.Email, "user_welcome.tmpl", data)

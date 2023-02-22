@@ -128,6 +128,30 @@ func (m UserModel) Insert(user *User) error {
 	return nil
 }
 
+func (m UserModel) GetById(id int64) *User {
+	query := `
+		SELECT name, surname, email 
+		FROM users
+		WHERE id = $1`
+
+	var user User
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	err := m.DB.QueryRowContext(ctx, query, id).Scan(
+		&user.Name,
+		&user.Surname,
+		&user.Email,
+	)
+
+	if err != nil {
+		return nil
+	}
+
+	return &user
+}
+
 func (m UserModel) GetByEmail(email string) (*User, error) {
 	query := `
 		SELECT id, created_at, name, surname, email, password_hash, activated, role, version
