@@ -1,9 +1,16 @@
 package main
 
 import (
+	"context"
+	"database/sql"
 	"flag"
+	_ "github.com/lib/pq"
+	"libercopia/internal/data"
+	"libercopia/internal/jsonlog"
+	"libercopia/internal/mailer"
 	"os"
 	"sync"
+	"time"
 )
 
 const version = "2.0.0"
@@ -33,9 +40,9 @@ type config struct {
 
 type application struct {
 	config config
-	logger *jsonlog.logger
+	logger *jsonlog.Logger
 	models data.Models
-	mailer mailer.mailer
+	mailer mailer.Mailer
 	wg     sync.WaitGroup
 }
 
@@ -63,4 +70,53 @@ func main() {
 
 	flag.Parse()
 
+	logger := jsonlog.New(os.Stdout, jsonlog.LevelInfo)
+
+	db, err := openDB(cfg)
+	if err != nil {
+		logger.PrintFatal(err, nil)
+	}
+
+	defer db.Close()
+
+	logger.PrintInfo("database connection pool established", nil)
+
+	app := &application{
+		config: cfg,
+		logger: logger,
+		models: data.NewModels(db),
+		mailer: mailer.New(cfg.smtp.host, cfg.smtp.port, cfg.smtp.username, cfg.smtp.password, cfg.smtp.sender),
+	}
+
+	err = app.serve()
+	if err != nil {
+		logger.PrintFatal(err, nil)
+	}
+}
+
+func openDB(cfg config) (*sql.DB, error) {
+	db, err := sql.Open("postgres", cfg.db.dsn)
+	if err != nil {
+		return nil, err
+	}
+
+	db.SetMaxOpenConns(cfg.db.maxOpenConns)
+	db.SetMaxIdleConns(cfg.db.maxIdleConns)
+
+	duration, err := time.ParseDuration(cfg.db.maxIdleTime)
+	if err != nil {
+		return nil, err
+	}
+
+	db.SetConnMaxIdleTime(duration)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	err = db.PingContext(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
 }
