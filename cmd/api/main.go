@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-const version = "1.0.0"
+const version = "2.0.0"
 
 type config struct {
 	port int
@@ -46,7 +46,7 @@ func main() {
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
 
 	flag.StringVar(&cfg.db.dsn, "db_dsn", os.Getenv("LIBERCOPIA_DSN"), "PostgreSQL DSN")
-	
+
 	flag.IntVar(&cfg.db.maxOpenConns, "db-max-open-conns", 25, "PostgreSQL max open connections")
 	flag.IntVar(&cfg.db.maxIdleConns, "db-max-idle-conns", 25, "PostgreSQL max idle connections")
 	flag.StringVar(&cfg.db.maxIdleTime, "db-max-idle-time", "15m", "PostgreSQL max connection idle time")
@@ -62,7 +62,5 @@ func main() {
 	flag.StringVar(&cfg.smtp.sender, "smtp-sender", "Libercopia <libercopia@outlook.com>", "SMTP sender")
 
 	flag.Parse()
-
-
 
 }
