@@ -15,7 +15,9 @@ func (app *application) routes() http.Handler {
 
 	router.HandlerFunc(http.MethodGet, "/v1/healthcheck", app.healthcheckHandler)
 
+	router.HandlerFunc(http.MethodGet, "/", app.openIndex)
 	router.HandlerFunc(http.MethodGet, "/page", app.openPage)
+	router.HandlerFunc(http.MethodGet, "/cart", app.openCart)
 
 	router.HandlerFunc(http.MethodPost, "/v1/users", app.registerUserHandler)
 	router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUserHandler)

@@ -26,7 +26,7 @@
     text-decoration: none;
     text-transform: capitalize;
     transition: all 0.2s linear;
-    transition: width none;
+    transition:width none;
 }
 
 html {
@@ -281,7 +281,7 @@ section {
 }
 
 .login-form-container form .btn,
-.registration-form-container .btn {
+.registration-form-container form .btn {
     text-align: center;
     width: 100%;
     margin: 1.5rem 0;
@@ -301,7 +301,7 @@ section {
 }
 
 .login-form-container #close-login-btn,
-.registration-form-container #close-registration-btn- {
+.registration-form-container #close-registration-btn {
     position: absolute;
     top: 1.5rem;
     right: 2.5rem;
