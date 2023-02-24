@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"html/template"
 	"libercopia/internal/data"
 	"libercopia/internal/validator"
 	"net/http"
@@ -54,5 +55,6 @@ func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, 
 		return
 	}
 
-	http.Redirect(w, r, "/account", http.StatusSeeOther)
+	tmpl, _ := template.ParseFiles("ui/templates/account.html")
+	tmpl.Execute(w, user)
 }
