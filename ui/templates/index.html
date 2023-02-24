@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Responsive Online Boot Store Website Design Tutorial</title>
+    <title>Libercopia</title>
+
+    <link rel="shortcut icon" href="/static/image/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
@@ -69,12 +71,12 @@
 
     <div id="close-login-btn" class="fas fa-times"></div>
 
-    <form action="">
+    <form action="/v1/tokens/authentication" method="post">
         <h3>sign in</h3>
         <span>Email</span>
-        <input type="email" name="" class="box" placeholder="enter your email" id="">
+        <input type="email" name="email" class="box" placeholder="enter your email">
         <span>Password</span>
-        <input type="password" name="" class="box" placeholder="enter your password" id="">
+        <input type="password" name="password" class="box" placeholder="enter your password">
         <div class="checkbox">
             <input type="checkbox" name="" id="remember-me">
             <label for="remember-me"> remember me</label>
@@ -92,12 +94,16 @@
 
      <div id="close-registration-btn" class="fas fa-times"></div>
 
-    <form action="">
+    <form action="/v1/users" method="post">
         <h3>sign up</h3>
         <span>Email</span>
-        <input type="email" name="" class="box" placeholder="enter your email" id="">
+        <input type="email" name="email" class="box" placeholder="enter your email" id="">
+        <span>Name</span>
+        <input type="text" name="name" class="box" placeholder="enter your first name" id="">
+        <span>Surname</span>
+        <input type="text" name="surname" class="box" placeholder="enter your last name" id="">
         <span>Password</span>
-        <input type="password" name="" class="box" placeholder="enter your password" id="">
+        <input type="password" name="password" class="box" placeholder="enter your password" id="">
         <input type="password" name="" class="box" placeholder="confirm your password" id="">
         <div class="checkbox">
             <input type="checkbox" name="" id="remember-me-2">
@@ -123,14 +129,14 @@
 
         <div class="swiper books-slider">
             <div class="swiper-wrapper">
-                <a href="#" class="swiper-slide"><img src="static/image/book-1.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="static/image/book-2.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="static/image/book-3.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="static/image/book-4.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="static/image/book-5.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="static/image/book-6.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="/static/image/book-1.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="/static/image/book-2.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="/static/image/book-3.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="/static/image/book-4.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="/static/image/book-5.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="/static/image/book-6.png" alt=""></a>
             </div>
-            <img src="static/image/stand.png" class="stand" alt="">
+            <img src="/static/image/stand.png" class="stand" alt="">
         </div>
 
     </div>
@@ -196,7 +202,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-1.png" alt="">
+                    <img src="/static/image/book-1.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -212,7 +218,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-2.png" alt="">
+                    <img src="/static/image/book-2.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -228,7 +234,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-3.png" alt="">
+                    <img src="/static/image/book-3.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -244,7 +250,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-4.png" alt="">
+                    <img src="/static/image/book-4.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -260,7 +266,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-5.png" alt="">
+                    <img src="/static/image/book-5.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -276,7 +282,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-6.png" alt="">
+                    <img src="/static/image/book-6.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -292,7 +298,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-7.png" alt="">
+                    <img src="/static/image/book-7.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -308,7 +314,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-8.png" alt="">
+                    <img src="/static/image/book-8.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -324,7 +330,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-9.png" alt="">
+                    <img src="/static/image/book-9.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -340,7 +346,7 @@
                     <a href="#" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="static/image/book-10.png" alt="">
+                    <img src="/static/image/book-10.png" alt="">
                 </div>
                 <div class="content">
                     <h3>featured books</h3>
@@ -366,7 +372,7 @@
 
     <form action="">
         <h3>subscribe for latest updates</h3>
-        <input type="email" name="" placeholder="enter your email" id="" class="box">
+        <input type="email" name="" placeholder="enter your email" class="box">
         <input type="submit" value="subscribe" class="btn">
     </form>
 
@@ -386,7 +392,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-1.png" alt="">
+                    <img src="/static/image/book-1.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -403,7 +409,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-2.png" alt="">
+                    <img src="/static/image/book-2.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -420,7 +426,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-3.png" alt="">
+                    <img src="/static/image/book-3.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -437,7 +443,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-4.png" alt="">
+                    <img src="/static/image/book-4.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -454,7 +460,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-5.png" alt="">
+                    <img src="/static/image/book-5.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -479,7 +485,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-6.png" alt="">
+                    <img src="/static/image/book-6.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -496,7 +502,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-7.png" alt="">
+                    <img src="/static/image/book-7.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -513,7 +519,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-8.png" alt="">
+                    <img src="/static/image/book-8.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -530,7 +536,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-9.png" alt="">
+                    <img src="/static/image/book-9.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -547,7 +553,7 @@
 
             <a href="#" class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/book-10.png" alt="">
+                    <img src="/static/image/book-10.png" alt="">
                 </div>
                 <div class="content">
                     <h3>new arrivals</h3>
@@ -582,7 +588,7 @@
     </div>
 
     <div class="image">
-        <img src="static/image/deal-img.jpg" alt="">
+        <img src="/static/image/deal-img.jpg" alt="">
     </div>
 
 </section>
@@ -600,7 +606,7 @@
         <div class="swiper-wrapper">
 
             <div class="swiper-slide box">
-                <img src="static/image/pic-1.png" alt="">
+                <img src="/static/image/pic-1.png" alt="">
                 <h3>john deo</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
                 <div class="stars">
@@ -613,7 +619,7 @@
             </div>
 
             <div class="swiper-slide box">
-                <img src="static/image/pic-2.png" alt="">
+                <img src="/static/image/pic-2.png" alt="">
                 <h3>john deo</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
                 <div class="stars">
@@ -626,7 +632,7 @@
             </div>
 
             <div class="swiper-slide box">
-                <img src="static/image/pic-3.png" alt="">
+                <img src="/static/image/pic-3.png" alt="">
                 <h3>john deo</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
                 <div class="stars">
@@ -638,20 +644,7 @@
                 </div>
             </div>
             <div class="swiper-slide box">
-                <img src="static/image/pic-4.png" alt="">
-                <h3>john deo</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="static/image/pic-5.png" alt="">
+                <img src="/static/image/pic-4.png" alt="">
                 <h3>john deo</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
                 <div class="stars">
@@ -664,7 +657,20 @@
             </div>
 
             <div class="swiper-slide box">
-                <img src="static/image/pic-6.png" alt="">
+                <img src="/static/image/pic-5.png" alt="">
+                <h3>john deo</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide box">
+                <img src="/static/image/pic-6.png" alt="">
                 <h3>john deo</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur nihil ipsa placeat. Aperiam at sint, eos ex similique facere hic.</p>
                 <div class="stars">
@@ -696,7 +702,7 @@
 
             <div class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/blog-1.jpg" alt="">
+                    <img src="/static/image/blog-1.jpg" alt="">
                 </div>
                 <div class="content">
                     <h3>blog title goes here</h3>
@@ -707,7 +713,7 @@
 
             <div class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/blog-2.jpg" alt="">
+                    <img src="/static/image/blog-2.jpg" alt="">
                 </div>
                 <div class="content">
                     <h3>blog title goes here</h3>
@@ -718,7 +724,7 @@
 
             <div class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/blog-3.jpg" alt="">
+                    <img src="/static/image/blog-3.jpg" alt="">
                 </div>
                 <div class="content">
                     <h3>blog title goes here</h3>
@@ -729,7 +735,7 @@
 
             <div class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/blog-4.jpg" alt="">
+                    <img src="/static/image/blog-4.jpg" alt="">
                 </div>
                 <div class="content">
                     <h3>blog title goes here</h3>
@@ -740,7 +746,7 @@
 
             <div class="swiper-slide box">
                 <div class="image">
-                    <img src="static/image/blog-5.jpg" alt="">
+                    <img src="/static/image/blog-5.jpg" alt="">
                 </div>
                 <div class="content">
                     <h3>blog title goes here</h3>
@@ -796,7 +802,7 @@
             <a href="#"> <i class="fas fa-phone"></i> +123-456-7890 </a>
             <a href="#"> <i class="fas fa-phone"></i> +111-222-3333 </a>
             <a href="#"> <i class="fas fa-envelope"></i> shaikhanas@gmail.com </a>
-            <img src="static/image/worldmap.png" class="map" alt="">
+            <img src="/static/image/worldmap.png" class="map" alt="">
         </div>
 
     </div>

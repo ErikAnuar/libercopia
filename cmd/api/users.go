@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"libercopia/internal/data"
 	"libercopia/internal/validator"
 	"net/http"
@@ -9,29 +10,22 @@ import (
 )
 
 func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Request) {
-	var input struct {
-		Name     string `json:"name"`
-		Surname  string `json:"surname"`
-		Email    string `json:"email"`
-		Password string `json:"password"`
-		Role     string `json:"role"`
-	}
 
-	err := app.readJSON(w, r, &input)
+	err := r.ParseForm()
 	if err != nil {
 		app.badRequestResponse(w, r, err)
 		return
 	}
 
 	user := &data.User{
-		Name:      input.Name,
-		Surname:   input.Surname,
-		Email:     input.Email,
-		Role:      input.Role,
+		Name:      r.PostFormValue("name"),
+		Surname:   r.PostFormValue("surname"),
+		Email:     r.PostFormValue("email"),
+		Role:      "user",
 		Activated: false,
 	}
 
-	err = user.Password.Set(input.Password)
+	err = user.Password.Set(r.PostFormValue("password"))
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 		return
@@ -62,6 +56,8 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
+	http.Redirect(w, r, "/tokenform", http.StatusSeeOther)
+
 	app.background(func() {
 
 		user_tmpl := app.models.Users.GetById(token.UserID)
@@ -76,24 +72,15 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 
 		err = app.mailer.Send(user.Email, "user_welcome.tmpl", data)
 		if err != nil {
+			fmt.Println(err)
 			app.logger.PrintError(err, nil)
 		}
 	})
-
-	err = app.writeJSON(w, http.StatusCreated, envelope{"user": user}, nil)
-	if err != nil {
-		app.serverErrorResponse(w, r, err)
-	}
 }
 
 func (app *application) activateUserHandler(w http.ResponseWriter, r *http.Request) {
-	var input struct {
-		TokenPlaintext string `json:"token"`
-		Password       string `json:"password"`
-		OldPassword    string `json:"old-password"`
-	}
 
-	err := app.readJSON(w, r, &input)
+	err := r.ParseForm()
 	if err != nil {
 		app.badRequestResponse(w, r, err)
 		return
@@ -101,12 +88,12 @@ func (app *application) activateUserHandler(w http.ResponseWriter, r *http.Reque
 
 	v := validator.New()
 
-	if data.ValidateTokenPlaintext(v, input.TokenPlaintext); !v.Valid() {
+	if data.ValidateTokenPlaintext(v, r.PostFormValue("tokenPlaintext")); !v.Valid() {
 		app.failedValidationResponse(w, r, v.Errors)
 		return
 	}
 
-	user, err := app.models.Users.GetForToken(data.ScopeActivation, input.TokenPlaintext)
+	user, err := app.models.Users.GetForToken(data.ScopeActivation, r.PostFormValue("tokenPlaintext"))
 	if err != nil {
 		switch {
 		case errors.Is(err, data.ErrRecordNotFound):
@@ -119,35 +106,6 @@ func (app *application) activateUserHandler(w http.ResponseWriter, r *http.Reque
 	}
 
 	user.Activated = true
-
-	if data.ValidatePasswordPlaintext(v, input.Password); !v.Valid() {
-		app.failedValidationResponse(w, r, v.Errors)
-		return
-	}
-
-	match, err := user.Password.Matches(input.OldPassword)
-	if err != nil {
-		app.serverErrorResponse(w, r, err)
-		return
-	}
-	if !match {
-		app.invalidCredentialsResponse(w, r)
-		return
-	} else {
-		if input.Password != input.OldPassword {
-			err = user.Password.Set(input.Password)
-			if err != nil {
-				app.serverErrorResponse(w, r, err)
-				return
-			}
-		} else {
-			v.Check(input.Password != input.OldPassword, "password", "Your new password can't be matched to old one. Please make changes!")
-			if !v.Valid() {
-				app.failedValidationResponse(w, r, v.Errors)
-				return
-			}
-		}
-	}
 
 	err = app.models.Users.Update(user)
 	if err != nil {
@@ -166,8 +124,5 @@ func (app *application) activateUserHandler(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	err = app.writeJSON(w, http.StatusOK, envelope{"user": user}, nil)
-	if err != nil {
-		app.serverErrorResponse(w, r, err)
-	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

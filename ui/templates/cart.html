@@ -4,7 +4,9 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Complete Responsive Online Boot Store Website Design Tutorial</title>
+    <title>Libercopia</title>
+
+    <link type="image/x-icon" href="/static/image/favicon.png" rel="shortcut icon">
 
     <!-- Font Awesome -->
     <link
@@ -82,65 +84,48 @@
 
     <div id="close-login-btn" class="fas fa-times"></div>
 
-    <form action="">
+    <form action="/v1/tokens/authentication" method="post">
         <h3>sign in</h3>
-        <span>username</span>
-        <input
-                type="email"
-                name=""
-                class="box"
-                placeholder="enter your email"
-                id=""
-        />
-        <span>password</span>
-        <input
-                type="password"
-                name=""
-                class="box"
-                placeholder="enter your password"
-                id=""
-        />
+        <span>Email</span>
+        <input type="email" name="email" class="box" placeholder="enter your email">
+        <span>Password</span>
+        <input type="password" name="password" class="box" placeholder="enter your password">
         <div class="checkbox">
-            <input type="checkbox" name="" id="remember-me"/>
+            <input type="checkbox" name="" id="remember-me">
             <label for="remember-me"> remember me</label>
         </div>
-        <input type="submit" value="sign in" class="btn"/>
+        <input type="submit" value="sign in" class="btn">
         <p>forget password ? <a href="#">click here</a></p>
         <p>don't have an account ? <a href="#" id="reg-btn">create one</a></p>
     </form>
+
 </div>
 
-<!-- signup form  -->
+<!-- registration form  -->
 
 <div class="registration-form-container">
 
     <div id="close-registration-btn" class="fas fa-times"></div>
 
-    <form action="">
+    <form action="/v1/users" method="post">
         <h3>sign up</h3>
-        <span>username</span>
-        <input
-                type="email"
-                name=""
-                class="box"
-                placeholder="enter your email"
-                id=""
-        />
-        <span>password</span>
-        <input
-                type="password"
-                name=""
-                class="box"
-                placeholder="enter your password"
-                id=""
-        />
+        <span>Email</span>
+        <input type="email" name="email" class="box" placeholder="enter your email" id="">
+        <span>Name</span>
+        <input type="text" name="name" class="box" placeholder="enter your first name" id="">
+        <span>Surname</span>
+        <input type="text" name="surname" class="box" placeholder="enter your last name" id="">
+        <span>Password</span>
+        <input type="password" name="password" class="box" placeholder="enter your password" id="">
+        <input type="password" name="" class="box" placeholder="confirm your password" id="">
         <div class="checkbox">
-            <input type="checkbox" name="" id="remember-me-2"/>
+            <input type="checkbox" name="" id="remember-me-2">
             <label for="remember-me-2"> remember me</label>
         </div>
-        <input type="submit" value="sign up" class="btn"/>
-        <p>forget password ? <a href="#" id="lgn-btn">click here</a></p>
+        <input type="submit" value="sign up" class="btn">
+        <p>already have an account ? <a href="#" id="lgn-btn">log in</a></p>
     </form>
+
 </div>
 
 <section class="h-100" style="background-color: #eee">
@@ -447,7 +432,7 @@
             <a href="#"> <i class="fas fa-phone"></i> +123-456-7890 </a>
             <a href="#"> <i class="fas fa-phone"></i> +111-222-3333 </a>
             <a href="#"> <i class="fas fa-envelope"></i> astanait@gmail.com </a>
-            <img src="static/images/worldmap.png" class="map" alt=""/>
+            <img src="/static/images/worldmap.png" class="map" alt=""/>
         </div>
     </div>
 

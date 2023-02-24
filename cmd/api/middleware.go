@@ -137,13 +137,13 @@ func (app *application) requireActivatedUser(next http.HandlerFunc) http.Handler
 		user := app.contextGetUser(r)
 
 		if user.IsAnonymous() {
-			app.authenticationRequiredResponse(w, r)
-			return
+			//app.authenticationRequiredResponse(w, r)
+			http.Redirect(w, r, "/v2/authentication_warning", http.StatusSeeOther)
 		}
 
 		if !user.Activated {
-			app.inactiveAccountResponse(w, r)
-			return
+			//app.inactiveAccountResponse(w, r)
+			http.Redirect(w, r, "/v2/activation_warning", http.StatusSeeOther)
 		}
 
 		next.ServeHTTP(w, r)
@@ -155,8 +155,7 @@ func (app *application) requireOnlyAdmin(next http.HandlerFunc) http.HandlerFunc
 		user := app.contextGetUser(r)
 
 		if user.Role != "admin" {
-			app.onlyAdminResponse(w, r)
-			return
+			http.Redirect(w, r, "/v2/permission_warning", http.StatusSeeOther)
 		}
 
 		next.ServeHTTP(w, r)

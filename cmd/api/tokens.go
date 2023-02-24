@@ -9,12 +9,8 @@ import (
 )
 
 func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, r *http.Request) {
-	var input struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
 
-	err := app.readJSON(w, r, &input)
+	err := r.ParseForm()
 	if err != nil {
 		app.badRequestResponse(w, r, err)
 		return
@@ -22,15 +18,15 @@ func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, 
 
 	v := validator.New()
 
-	data.ValidateEmail(v, input.Email)
-	data.ValidatePasswordPlaintext(v, input.Password)
+	data.ValidateEmail(v, r.PostFormValue("email"))
+	data.ValidatePasswordPlaintext(v, r.PostFormValue("password"))
 
 	if !v.Valid() {
 		app.failedValidationResponse(w, r, v.Errors)
 		return
 	}
 
-	user, err := app.models.Users.GetByEmail(input.Email)
+	user, err := app.models.Users.GetByEmail(r.PostFormValue("email"))
 	if err != nil {
 		switch {
 		case errors.Is(err, data.ErrRecordNotFound):
@@ -41,7 +37,7 @@ func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, 
 		return
 	}
 
-	match, err := user.Password.Matches(input.Password)
+	match, err := user.Password.Matches(r.PostFormValue("password"))
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 		return
@@ -52,14 +48,11 @@ func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, 
 		return
 	}
 
-	token, err := app.models.Tokens.New(user.ID, 24*time.Hour, data.ScopeAuthentication)
+	_, err = app.models.Tokens.New(user.ID, 24*time.Hour, data.ScopeAuthentication)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 		return
 	}
 
-	err = app.writeJSON(w, http.StatusCreated, envelope{"authentication_token": token}, nil)
-	if err != nil {
-		app.serverErrorResponse(w, r, err)
-	}
+	http.Redirect(w, r, "/account", http.StatusSeeOther)
 }
